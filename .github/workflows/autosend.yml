@@ -1,0 +1,29 @@
+name: "Autosend"
+
+on:
+  push: 
+    branches: main
+  schedule: 
+    - cron: 25 04 * * * # 每天12点25分自动执行
+  workflow_dispatch:
+    inputs:
+
+jobs:
+  autosend:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: do notification as bot
+        uses: nhomble/groupme-notify-action@v1
+        id: bot
+        with:
+          bot: ${{ secrets.GM_BOT_ID }}
+          message: "Never say die!"
+          token: ${{ secrets.GM_API_KEY }}
+
+      - name: Delete workflow runs
+        uses: Mattraks/delete-workflow-runs@main
+        with:
+          retain_days: 2
+          keep_minimum_runs: 6
