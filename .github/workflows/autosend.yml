@@ -4,7 +4,7 @@ on:
   push: 
     branches: main
   schedule: 
-    - cron: 25 04 * * * # 每天12点25分自动执行
+    - cron: 25 09 * * * # 每天9点25分自动执行
   workflow_dispatch:
     inputs:
 
